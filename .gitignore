@@ -1,4 +1,20 @@
+<<<<<<< HEAD
 backend/.venv/ .venv/
+__pycache__/
+*.pyc
+backend/.env
+=======
+.env
+.venv/
+venv/
+__pycache__/
+*.pyc
+node_modules/
+dist/
+build/
+>>>>>>> d9a9c0279513f77651b84c1fef87e0dcf2142088
+.venv/
+backend/.venv/
 __pycache__/
 *.pyc
 backend/.env
