@@ -1,8 +1,11 @@
 from fastapi import FastAPI
 
 from app.agents.workflow import graph
+from app.routers.applications import router as applications_router
 
 app = FastAPI(title="Agentic Internship Coordinator")
+
+app.include_router(applications_router)
 
 
 @app.get("/")

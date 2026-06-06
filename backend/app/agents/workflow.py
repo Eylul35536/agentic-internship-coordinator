@@ -2,33 +2,29 @@ from typing import TypedDict
 
 from langgraph.graph import StateGraph, END
 
+from app.agents.cv_agent import analyze_cv
+from app.agents.matching_agent import match_candidate
+from app.agents.report_agent import generate_report
+
 
 class CandidateState(TypedDict):
     cv_text: str
     analysis: str
+    candidate_score: int
     recommendation: str
-
-
-def analyze_cv(state: CandidateState):
-    return {
-        "analysis": f"CV analyzed: {state['cv_text']}"
-    }
-
-
-def match_candidate(state: CandidateState):
-    return {
-        "recommendation": "Backend Developer Internship"
-    }
+    report: str
 
 
 builder = StateGraph(CandidateState)
 
 builder.add_node("cv_analysis", analyze_cv)
 builder.add_node("matching", match_candidate)
+builder.add_node("report", generate_report)
 
 builder.set_entry_point("cv_analysis")
 
 builder.add_edge("cv_analysis", "matching")
-builder.add_edge("matching", END)
+builder.add_edge("matching", "report")
+builder.add_edge("report", END)
 
 graph = builder.compile()
